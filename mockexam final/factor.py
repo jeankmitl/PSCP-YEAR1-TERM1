@@ -4,7 +4,7 @@ def prime(n):
     factor = {}
     han = 2
     while n > 1:
-        while n % han == 0:
+        while not n % han:
             if han in factor:
                 factor[han] += 1
             else:

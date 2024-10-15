@@ -11,13 +11,10 @@ def main():
         socks.append(f'{i * 2} ' * pairs)
         unsock = unsock.replace(i, '')
     socks = sorted(socks)
-    output = ''
-    for i in socks:
-        output += i
     if not count:
         print('None')
         print(count)
     else:
-        print(output)
+        print(''.join(socks))
         print(count)
 main()
