@@ -1,53 +1,45 @@
 import json
 
-def main():
-    'catgirls or fox girls'
-    try:
-        num = int(input())
-    except ValueError:
-        print("Please enter a valid number.")
-        return
+def format_input(user_input):
+    user_input = user_input.strip()
+    if not user_input.startswith("{") and not user_input.endswith("}"):
+        user_input = "{" + user_input + "}"
+    user_input = user_input.replace("'", '"')
+    return user_input
 
-    # Separate dictionaries for cats and foxes
+def main():
+    num = int(input())
     foxes = {}
     cats = {}
-
     for _ in range(num):
+        temp = input().strip()
+        formatted_temp = format_input(temp)
         try:
-            creature = json.loads(input())
-            if not isinstance(creature, dict):
-                raise ValueError("Input must be a JSON object.")
-        except (json.JSONDecodeError, ValueError) as e:
-            print(f"Invalid input: {e}")
+            creature = json.loads(formatted_temp)
+        except json.JSONDecodeError:
             continue
-
         for name, animal in creature.items():
-            if 'Fox' in animal and name not in foxes:
-                foxes[name] = animal  # Add to foxes dictionary if not already present
-            elif 'Cat' in animal and name not in cats:
-                cats[name] = animal  # Add to cats dictionary if not already present
-
-    # Check for missing creatures and add them if necessary
-    if not any(x in cats for x in ['Cat01', 'Garfield', 'Fubuki']):
-        cats["Garfield"] = "Cat01"
-    
-    if not any(x in foxes for x in ['Fox01', 'Garfield', 'Fubuki']):
-        foxes["Fubuki"] = "Fox01"
-
-    # Sort by items (by value, then by key if necessary)
-    cats = dict(sorted(cats.items(), key=lambda item: (item[1], item[0])))
-    foxes = dict(sorted(foxes.items(), key=lambda item: (item[1], item[0])))
-
-    # Count
+            if 'Fox' in animal:
+                foxes[name] = animal
+            elif 'Cat' in animal:
+                cats[name] = animal
+    if 'Cat01' not in cats.values() and 'Garfield' not in cats:
+        if 'Garfield' not in foxes:
+            cats["Garfield"] = "Cat01"
+    if 'Fox01' not in foxes.values() and 'Fubuki' not in foxes:
+        if 'Fubuki' not in cats:
+            foxes["Fubuki"] = "Fox01"
+    if cats:
+        cats = dict(sorted(cats.items(), key=lambda item: item[1]))
+    if foxes:
+        foxes = dict(sorted(foxes.items(), key=lambda item: item[1]))
     cats_amount = len(cats)
     foxes_amount = len(foxes)
-
-    # Print results
     print(f"Cat : {cats_amount}")
     print(f"Fox : {foxes_amount}")
-    for i in cats:
-        print(f"{i} : {cats[i]}")
-    for j in foxes:
-        print(f"{j} : {foxes[j]}")
+    for i, ij in cats.items():
+        print(f"{i} : {ij}")
+    for j, jj in foxes.items():
+        print(f"{j} : {jj}")
 
 main()

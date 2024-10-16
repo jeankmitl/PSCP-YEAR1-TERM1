@@ -8,7 +8,10 @@ def main():
     foxes = {}
     cats = {}
     for _ in range(num):
-        creature = json.loads(input())
+        temp = input().strip()
+        if "'" in temp:
+            temp =temp.replace("'", '"')
+        creature = json.loads(temp)
         for name, animal in creature.items():
             if 'Fox' in animal:
                 foxes[name] = animal
