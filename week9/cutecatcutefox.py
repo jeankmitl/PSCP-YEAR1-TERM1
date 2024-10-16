@@ -1,5 +1,10 @@
 '''CuteCat CuteFox'''
-import json
+def parse_line(line):
+    line = line.strip().replace('{', '').replace('}', '').replace('"', '').replace(' ', '')
+    key, value = line.split(':')
+
+    return {key: value}
+
 def main():
     'catgirls or fox girls'
     num = int(input())
@@ -8,10 +13,7 @@ def main():
     foxes = {}
     cats = {}
     for _ in range(num):
-        temp = input().strip()
-        if "'" in temp:
-            temp =temp.replace("'", '"')
-        creature = json.loads(temp)
+        creature = parse_line(input())
         for name, animal in creature.items():
             if 'Fox' in animal:
                 foxes[name] = animal
