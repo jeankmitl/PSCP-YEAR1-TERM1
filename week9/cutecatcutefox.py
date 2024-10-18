@@ -1,8 +1,10 @@
 '''CuteCat CuteFox'''
 def parse_line(line):
-    line = line.strip().replace('{', '').replace('}', '').replace('"', '').replace(' ', '')
+    'aaaaa'
+    line = line.strip().replace('{', '').replace('}', '')
     key, value = line.split(':')
-
+    key = key[1:-2]
+    value = value[2:-1]
     return {key: value}
 
 def main():
@@ -31,9 +33,9 @@ def main():
 
     #sort by items
     if cats:
-        cats = dict(sorted(cats.items(), key=lambda item: item[1]))
+        cats = dict(sorted(cats.items(), key=lambda item: int(item[1][3:])))
     if foxes:
-        foxes = dict(sorted(foxes.items(), key=lambda item: item[1]))
+        foxes = dict(sorted(foxes.items(), key=lambda item: int(item[1][3:])))
 
     #count
     cats_amount = len(cats)
