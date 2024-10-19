@@ -1,23 +1,14 @@
 '''CuteCat CuteFox'''
 def parse_line(line):
+    'bruhh'
     line = line.strip().replace('{', '').replace('}', '').replace('"', '').replace(' ', '')
     key, value = line.split(':')
 
     return {key: value}
 
-def is_cat_or_fox(entry):
-    value = list(entry.values())[0]
-   
-    if value.startswith("Cat"):
-        return "Cat"
-    elif value.startswith("Fox"):
-        return "Fox"
-
 def main():
     'catgirls or fox girls'
     num = int(input())
-
-    #adds to a seperate dictionary for cats and foxes
     foxes = {}
     cats = {}
     for _ in range(num):
@@ -28,30 +19,34 @@ def main():
             elif 'Cat' in animal:
                 cats[name] = animal
 
-    #checks for missing creature at 01 index (this took me a while to solve)
     if 'Cat01' not in cats.values() and 'Garfield' not in cats:
         if 'Garfield' not in foxes:
             cats["Garfield"] = "Cat01"
-
     if 'Fox01' not in foxes.values() and 'Fubuki' not in foxes:
         if 'Fubuki' not in cats:
             foxes["Fubuki"] = "Fox01"
 
-    #sort by items
-    if cats:
-        cats = dict(sorted(cats.items(), key=lambda item: item[1]))
-    if foxes:
-        foxes = dict(sorted(foxes.items(), key=lambda item: item[1]))
+    def get_number(s):
+        for i in range(len(s)):
+            tempout = ''
+            if s[i:].isdigit():
+                tempout += s[i:]
+        return int(tempout)
 
-    #count
+    # Modified sorting using get_number function
+    if cats:
+        cats = dict(sorted(cats.items(), key=lambda item: get_number(item[1])))
+    if foxes:
+        foxes = dict(sorted(foxes.items(), key=lambda item: get_number(item[1])))
+    
     cats_amount = len(cats)
     foxes_amount = len(foxes)
-
-    #print
+    
     print(f"Cat : {cats_amount}")
     print(f"Fox : {foxes_amount}")
     for i, ij in cats.items():
         print(f"{i} : {ij}")
     for j, jj in foxes.items():
         print(f"{j} : {jj}")
+
 main()

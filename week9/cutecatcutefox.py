@@ -1,5 +1,6 @@
 '''CuteCat CuteFox'''
 def parse_line(line):
+    'thsi just cleans junk'
     line = line.strip().replace('{', '').replace('}', '').replace('"', '').replace(' ', '')
     key, value = line.split(':')
 
@@ -31,9 +32,9 @@ def main():
 
     #sort by items
     if cats:
-        cats = dict(sorted(cats.items(), key=lambda item: item[1]))
+        cats = dict(sorted(cats.items(), key=lambda item: int(item[1][3:]) if item[1][3:].isdigit() else 0))
     if foxes:
-        foxes = dict(sorted(foxes.items(), key=lambda item: item[1]))
+        foxes = dict(sorted(foxes.items(), key=lambda item: int(item[1][3:]) if item[1][3:].isdigit() else 0))
 
     #count
     cats_amount = len(cats)
