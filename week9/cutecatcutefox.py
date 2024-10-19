@@ -2,8 +2,11 @@
 def parse_line(line):
     'thsi just cleans junk'
     line = line.strip().replace('{', '').replace('}', '').replace('"', '').replace(' ', '')
+    'aaaaa'
+    line = line.strip().replace('{', '').replace('}', '')
     key, value = line.split(':')
-
+    key = key[1:-2]
+    value = value[2:-1]
     return {key: value}
 
 def main():
